@@ -61,10 +61,21 @@ public class ElectronicStoreApp extends Application{
         //StockList
         view1.getStockList().setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
+                view1.getCartList().getSelectionModel().select(-1);
                 int selectedIndex = view1.getStockList().getSelectionModel().getSelectedIndex();
                 //updateview
+                view1.getCartList().getSelectionModel().select(-1);
                 view1.Update(model,selectedIndex);
-                buttonPane.getAddToCart().setDisable(false);
+            }
+        });
+
+        //cartlist
+        view1.getCartList().setOnMousePressed(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+                int selectedIndex = view1.getCartList().getSelectionModel().getSelectedIndex();
+                //updateview
+                view1.getStockList().getSelectionModel().select(-1);
+                view1.Update(model,selectedIndex);
             }
         });
 
@@ -73,28 +84,43 @@ public class ElectronicStoreApp extends Application{
             public void handle(ActionEvent actionEvent) {
                 int selectedIndex = view1.getStockList().getSelectionModel().getSelectedIndex();
                 view1.Update(model,selectedIndex);
-                model.addToCart(model.getStock().get(selectedIndex));
-                view1.setUpdateText(String.valueOf(model.getCartCost()));
-                if(model.getStock().get(selectedIndex).getStockQuantity()<=0){ view1.getStockListS().remove(model.getStock().get(selectedIndex).toString());
+
+                if(model.getStock().get(selectedIndex).getStockQuantity()<=1){
+                    model.addToCart(model.getStock().get(selectedIndex));
+                    view1.setUpdateText(String.valueOf(model.getCartCost()));
+                    view1.getCartList().getSelectionModel().select(-1);
+                    view1.getStockList().getSelectionModel().select(-1);
+                    view1.Update(model,-1);
+                }else {
+                    model.addToCart(model.getStock().get(selectedIndex));
+                    view1.setUpdateText(String.valueOf(model.getCartCost()));
+                    view1.getCartList().getSelectionModel().select(-1);
+                    view1.getStockList().getSelectionModel().select(selectedIndex);
+                    view1.Update(model,selectedIndex);
                 }
-                view1.Update(model,selectedIndex);
             }
         });
+
         view1.getButtonPane().getRemoveFromCart().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
                 int selectedIndex = view1.getCartList().getSelectionModel().getSelectedIndex();
 
                 model.removeFromCart(model.getCart().get(selectedIndex));
                 view1.setUpdateText(String.valueOf(model.getCartCost()));
-                view1.Update(model,selectedIndex);
+                view1.getCartList().getSelectionModel().select(-1);
+                view1.getStockList().getSelectionModel().select(-1);
+                view1.Update(model,-1);
             }
         });
         view1.getButtonPane().getResetStore().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
 
+
                 model = ElectronicStore.createStore();
                 view1.setUpdateText("0");
-                view1.Update(model,0);
+                view1.getCartList().getSelectionModel().select(-1);
+                view1.getStockList().getSelectionModel().select(-1);
+                view1.Update(model,-1);
             }
         });
         view1.getButtonPane().getCompleteSale().setOnAction(new EventHandler<ActionEvent>() {
@@ -103,7 +129,10 @@ public class ElectronicStoreApp extends Application{
                 model.findPopularProducts();
 
                 view1.setUpdateText("0");
-                view1.Update(model,0);
+
+                view1.getCartList().getSelectionModel().select(-1);
+                view1.getStockList().getSelectionModel().select(-1);
+                view1.Update(model,-1);
 
             }
         });
