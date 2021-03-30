@@ -67,15 +67,24 @@ public class ElectronicStoreAppView extends Pane {
         }
 
         //these methods enable/disable the buttons
-        if(model.getCartCount()>0){
-            getButtonPane().getRemoveFromCart().setDisable(false);
-            getButtonPane().getCompleteSale().setDisable(false);
-        }else {
-            getButtonPane().getRemoveFromCart().setDisable(true);
-            getButtonPane().getCompleteSale().setDisable(true);
-        }
+
         if(stockList.getSelectionModel().getSelectedIndex()==-1){
             buttonPane.getAddToCart().setDisable(true);
+        }else{
+            buttonPane.getAddToCart().setDisable(false);
+        }
+
+
+        if(cartList.getSelectionModel().getSelectedIndex()>=0 && model.getCartCount()>0){
+            getButtonPane().getRemoveFromCart().setDisable(false);
+        }else{
+            getButtonPane().getRemoveFromCart().setDisable(true);
+        }
+
+        if(model.getCartCount()>0){
+            getButtonPane().getCompleteSale().setDisable(false);
+        }else{
+            getButtonPane().getCompleteSale().setDisable(true);
         }
 
 
@@ -106,10 +115,12 @@ public class ElectronicStoreAppView extends Pane {
         }
 
         Label4.setText("Current Cart: ($"+updateText+")");
-        cartList.getSelectionModel().select(selectedProduct);
-        stockList.getSelectionModel().select(selectedProduct);
 
-
+//
+//
+            stockList.getSelectionModel().select(selectedProduct);
+//            cartList.getSelectionModel().select(selectedProduct);
+//
     }
 
 
@@ -172,4 +183,3 @@ public class ElectronicStoreAppView extends Pane {
         getChildren().addAll(Label1,buttonPane,popList,stockList,cartList,Label2,Label3,Label4,Label5,Label6,Label7,salesFeild,revFeild,dolarSalesFeild);
         setPrefSize(800,400);
     }
-}
