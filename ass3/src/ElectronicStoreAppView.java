@@ -73,8 +73,11 @@ public class ElectronicStoreAppView extends Pane {
         }else {
             getButtonPane().getRemoveFromCart().setDisable(true);
             getButtonPane().getCompleteSale().setDisable(true);
-
         }
+        if(stockList.getSelectionModel().getSelectedIndex()==-1){
+            buttonPane.getAddToCart().setDisable(true);
+        }
+
 
         //update the textfields
         salesFeild.setText(String.valueOf(model.getNumSales()));

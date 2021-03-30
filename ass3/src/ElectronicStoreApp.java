@@ -56,8 +56,6 @@ public class ElectronicStoreApp extends Application{
         aPane.getChildren().add(view1);
 
 
-
-
         //eventhandling//
 
         //StockList
@@ -103,6 +101,7 @@ public class ElectronicStoreApp extends Application{
             public void handle(ActionEvent actionEvent) {
                 model.sellProducts();
                 model.findPopularProducts();
+
                 view1.setUpdateText("0");
                 view1.Update(model,0);
 

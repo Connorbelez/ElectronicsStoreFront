@@ -57,44 +57,96 @@ public class ElectronicStore{
     soldProducts.addAll(cart);
     cart.clear();
     cartCount=0;
+    cartCost =0;
     }
 
 //im sure theres a better way of doing this, if the TA marking this has time, please point me to a resourse in the comments.
+  //THis is the source of the issue im pretty sure!
   public void findPopularProducts(){
-    if(numSales>0) {
-      Product p1, p2, p3;
-      p1 = soldProducts.get(0);
-      p2 = stock.get(1);
-      p3 = stock.get(2);
+    Product p1, p2, p3;
 
-      if(numSales == 2){
-        if (soldProducts.get(0).getSoldQuantity() > soldProducts.get(1).getSoldQuantity()) {
-          p1 = soldProducts.get(0);
-          p2 = soldProducts.get(1);
-
+      if(soldProducts.size()==1){
+        popularProducts[0]=soldProducts.get(0);
+        popularProducts[1]=stock.get(1);
+        popularProducts[2]=stock.get(2);
+      }else if(soldProducts.size()==2){
+        if(soldProducts.get(0).getSoldQuantity()>soldProducts.get(1).getSoldQuantity()){
+          popularProducts[0] = soldProducts.get(0);
+          popularProducts[1] = soldProducts.get(1);
+          popularProducts[2]=stock.get(2);
         }else{
-        p1 = soldProducts.get(1);
-        p2 = soldProducts.get(0);
+          popularProducts[0] = soldProducts.get(1);
+          popularProducts[1] = soldProducts.get(0);
+          popularProducts[2]=stock.get(2);
         }
-      }
-      if(numSales>=3){
-      for (Product p:soldProducts
-           ) {
-        if(p.getSoldQuantity()> p1.getSoldQuantity()){
-          p1 = p;
-        }else if(p.getSoldQuantity()> p2.getSoldQuantity()){
-          p2 = p;
-        }else if(p.getSoldQuantity()>p3.getSoldQuantity()){
-          p3 = p;
+      } else{
+        for (Product p:soldProducts
+             ) {
+          if(p.getSoldQuantity()>=soldProducts.get(0).getSoldQuantity()){
+            popularProducts[0]=p;
+          }}
+        for (Product p:soldProducts
+             ) {
+          if(p.getSoldQuantity()>=soldProducts.get(1).getSoldQuantity() && !p.equals(popularProducts[0])){
+            popularProducts[1]=p;
+          }
         }
-      }}
+        for (Product p:soldProducts
+             ) {
+          if(p.getSoldQuantity()>=soldProducts.get(2).getSoldQuantity() && !p.equals(popularProducts[0]) && !p.equals(popularProducts[1])){
+            popularProducts[2] = p;
+          }
+        }
+
+        }
 
 
-      popularProducts[0] = p1;
-      popularProducts[1] = p2;
-      popularProducts[2] = p3;
+//
+//
+//      p1 = soldProducts.get(0);
+//
+//      if(curProducts>2) {
+//        p2 = stock.get(1);
+//        p3 = stock.get(2);
+//      }else {
+//        p2 = popularProducts[1];
+//        p3 = popularProducts[2];
+//      }
+//
+//      if(numSales == 2){
+//        if (soldProducts.get(0).getSoldQuantity() > soldProducts.get(1).getSoldQuantity()) {
+//          p1 = soldProducts.get(0);
+//          p2 = soldProducts.get(1);
+//
+//        }else{
+//        p1 = soldProducts.get(1);
+//        p2 = soldProducts.get(0);
+//        }
+//      }
+//      if(numSales>=3){
+//      for (Product p:soldProducts
+//           ) {
+//        if(p.getSoldQuantity()> p1.getSoldQuantity()){
+//          p1 = p;
+//        }else if(p.getSoldQuantity()> p2.getSoldQuantity()){
+//          p2 = p;
+//        }else if(p.getSoldQuantity()>p3.getSoldQuantity()){
+//          p3 = p;
+//        }
+//      }}
+//
+//
+//      popularProducts[0] = p1;
+//      popularProducts[1] = p2;
+//      popularProducts[2] = p3;
 
-    }
+//    String[] sPopularProducts = new String[popularProducts.length];
+//    for (int i = 0; i < popularProducts.length; i++) {
+//      if(popularProducts[i] !=null){
+//        sPopularProducts[i] = popularProducts[i].toString();
+//      }
+//    }
+//    return sPopularProducts;
 
   }
 
@@ -131,6 +183,9 @@ public class ElectronicStore{
 
 
 //get methods
+
+  public ArrayList<Product> getSoldProducts() {return soldProducts;}
+
   public ArrayList<Product> getCart() {return cart; }
   public double getRevenue(){ return revenue;}
   public ArrayList<Product> getStock(){return stock;}

@@ -29,8 +29,8 @@ public class Product{
     }
 
 public void addedToCart(){
-     stockQuantity--;
-     cartQuantity++;
+    cartQuantity++;
+    stockQuantity--;
 }
 
 public void removedFromCart(){
@@ -41,5 +41,6 @@ public void removedFromCart(){
 //modified to simply update the sold quantity
  public void sellUnits(int amount){
      soldQuantity += amount;
+     cartQuantity -= amount;
     }
 }
