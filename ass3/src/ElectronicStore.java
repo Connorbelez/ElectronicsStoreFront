@@ -61,7 +61,6 @@ public class ElectronicStore{
     }
 
 //im sure theres a better way of doing this, if the TA marking this has time, please point me to a resourse in the comments.
-  //THis is the source of the issue im pretty sure!
   public void findPopularProducts(){
     Product p1, p2, p3;
 
@@ -99,54 +98,6 @@ public class ElectronicStore{
         }
 
         }
-
-
-//
-//
-//      p1 = soldProducts.get(0);
-//
-//      if(curProducts>2) {
-//        p2 = stock.get(1);
-//        p3 = stock.get(2);
-//      }else {
-//        p2 = popularProducts[1];
-//        p3 = popularProducts[2];
-//      }
-//
-//      if(numSales == 2){
-//        if (soldProducts.get(0).getSoldQuantity() > soldProducts.get(1).getSoldQuantity()) {
-//          p1 = soldProducts.get(0);
-//          p2 = soldProducts.get(1);
-//
-//        }else{
-//        p1 = soldProducts.get(1);
-//        p2 = soldProducts.get(0);
-//        }
-//      }
-//      if(numSales>=3){
-//      for (Product p:soldProducts
-//           ) {
-//        if(p.getSoldQuantity()> p1.getSoldQuantity()){
-//          p1 = p;
-//        }else if(p.getSoldQuantity()> p2.getSoldQuantity()){
-//          p2 = p;
-//        }else if(p.getSoldQuantity()>p3.getSoldQuantity()){
-//          p3 = p;
-//        }
-//      }}
-//
-//
-//      popularProducts[0] = p1;
-//      popularProducts[1] = p2;
-//      popularProducts[2] = p3;
-
-//    String[] sPopularProducts = new String[popularProducts.length];
-//    for (int i = 0; i < popularProducts.length; i++) {
-//      if(popularProducts[i] !=null){
-//        sPopularProducts[i] = popularProducts[i].toString();
-//      }
-//    }
-//    return sPopularProducts;
 
   }
 
